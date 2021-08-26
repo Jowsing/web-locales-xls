@@ -90,7 +90,7 @@ def export_excel(workbook):
         file = 'web_locales'
     if not file.endswith('.xls'):
         file += '.xls'
-    workbook.save(file)
+    workbook.save('xlsx/'+file)
 
 
 def main():

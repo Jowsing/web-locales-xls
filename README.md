@@ -1,7 +1,9 @@
 # web-locales-xls
 
+## export XLS from locales/*.js
+
 ```
 cd #project#
 
-python main.py #import_locales_filepath# #export_xls_filename#
+python exportXLS.py #import_locales_filepath# #export_xls_filename#
 ```
