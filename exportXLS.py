@@ -9,9 +9,7 @@ def main():
     locales_path = 'locales'
 
     if not os.path.exists(locales_path):
-        if len(sys.argv) < 2:
-            raise Exception("请在命令行中传入参数 -> 语言包目录")
-        web_locales_path = sys.argv[1]
+        web_locales_path = get_sys_arg(1, '语言包目录')
         copy_dir(web_locales_path, locales_path)
 
     js_dirs = search_files(locales_path, filter_dir)

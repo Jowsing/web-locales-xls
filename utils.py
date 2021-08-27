@@ -97,5 +97,31 @@ def export_excel(workbook):
     workbook.save('xlsx/'+file)
 
 
+def make_dir(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
 def delete_dir(path):
     shutil.rmtree(path)
+
+
+def write_js_file(path, str):
+    file = open(path, 'a')
+    file.write(str)
+    file.close()
+
+
+def js_objstr_add(str, key, value):
+    if len(str) < 1:
+        str += 'export default {'
+    str += '\n  {0}: {1},'.format(key.encode(encoding='utf-8'),
+                                  value.encode(encoding='utf-8'))
+    return str
+
+
+def get_sys_arg(i, error_msg=''):
+    if len(sys.argv) > i:
+        return sys.argv[i]
+    else:
+        raise Exception("请在命令行中传入第 {0} 个参数 -> {1}".format(i, error_msg))
