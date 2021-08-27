@@ -1,3 +1,4 @@
 /locales
 /locales_new
 *.xls
+*.pyc
