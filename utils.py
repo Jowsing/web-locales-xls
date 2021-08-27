@@ -103,7 +103,8 @@ def make_dir(path):
 
 
 def delete_dir(path):
-    shutil.rmtree(path)
+    if os.path.exists(path):
+        shutil.rmtree(path)
 
 
 def write_js_file(path, str):

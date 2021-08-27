@@ -13,6 +13,7 @@ def main():
     sheet_len = book.nsheets
 
     if sheet_len > 0:
+        delete_dir(locales_path)
         make_dir(locales_path)
 
     for sheet_i in range(sheet_len):
