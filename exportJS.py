@@ -4,7 +4,7 @@ from utils import *
 
 
 def main():
-    locales_path = 'locales_new'
+    locales_path = get_sys_arg(2, '', 'locales_new')
 
     execl_file_path = get_sys_arg(1, '语言包的 Excel 文件')
 
@@ -13,7 +13,6 @@ def main():
     sheet_len = book.nsheets
 
     if sheet_len > 0:
-        delete_dir(locales_path)
         make_dir(locales_path)
 
     for sheet_i in range(sheet_len):

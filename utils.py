@@ -75,7 +75,7 @@ def read_js_json(js_file):
 def get_cell_style():
     style = xlwt.XFStyle()
     alignment = xlwt.Alignment()
-    alignment.horz = 0x01
+    alignment.horz = 0x02
     alignment.vert = 0x01
     alignment.wrap = 1
     style.alignment = alignment
@@ -109,6 +109,8 @@ def delete_dir(path):
 
 
 def write_js_file(path, str):
+    if os.path.exists(path):
+        os.remove(path)
     file = open(path, 'a')
     file.write(str)
     file.close()
@@ -122,8 +124,10 @@ def js_objstr_add(str, key, value):
     return str
 
 
-def get_sys_arg(i, error_msg=''):
+def get_sys_arg(i, error_msg='', def_value=''):
     if len(sys.argv) > i:
         return sys.argv[i]
+    elif len(def_value) > 0:
+        return def_value
     else:
         raise Exception("请在命令行中传入第 {0} 个参数 -> {1}".format(i, error_msg))

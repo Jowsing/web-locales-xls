@@ -52,9 +52,12 @@ def main():
                 sheets_y_list = sheets_y.get(sheet_name)
                 sheets_y_list = sheets_y_list if sheets_y_list else []
                 (iy, sheets_y[sheet_name]) = z_arr_push(sheets_y_list, k)
-
-                sheet.write(iy + 1, 0, k, style)
-                sheet.write(iy + 1, ix, v, style)
+                if len(k) > 0:
+                    sheet.write(iy + 1, 0, k, style)
+                    if len(v) > 0:
+                        sheet.write(iy + 1, ix, v, style)
+                    else:
+                        sheet.write(iy + 1, ix, "''", style)
 
     export_excel(workbook)
     delete_dir(locales_path)
