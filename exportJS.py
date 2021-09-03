@@ -33,7 +33,8 @@ def main():
                     continue
                 key = sheet.cell_value(row, 0)
                 value = sheet.cell_value(row, col)
-                js = js_objstr_add(js, key, value)
+                js = js_objstr_add(js, add_first_last(
+                    key, "'"), add_first_last(value, "'"))
 
             if len(js) < 1:
                 continue

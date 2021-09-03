@@ -16,6 +16,20 @@ def r_newline(str):
     return str.replace('\n', '').replace('\r', '')
 
 
+def replace_first_last(str, char):
+    if len(str) < 2 or len(char) < 1 or not str.endswith(char) or not str.startswith(char):
+        return str
+
+    return str[str.find(char) + 1: str.rfind(char)]
+
+
+def add_first_last(str, char):
+    if len(char) < 1 or str.endswith('`') or str.endswith('"'):
+        return str
+
+    return char + str + char
+
+
 def lines_in_js(str):
     str_insert_line_char = str.replace(
         '\',\n', '\'<--line-->').replace('",\n', '"<--line-->').replace('`,\n', '`<--line-->')
@@ -30,6 +44,12 @@ def z_arr_push(arr, value):
         arr.append(value)
         i = len(arr) - 1
     return (i, arr)
+
+
+def sort_by_langs(arr):
+    sort_keys = {'zh-CN': 'A', 'en-US': 'B',
+                 'es-ES': 'C', 'nl-NL': 'D', 'zh-TW': 'E'}
+    return sorted(arr, key=sort_keys.__getitem__)
 
 
 def filter_dir(file):
@@ -79,6 +99,15 @@ def get_cell_style():
     alignment.vert = 0x01
     alignment.wrap = 1
     style.alignment = alignment
+    return style
+
+
+def get_sepec_cell_style():
+    style = get_cell_style()
+    font = xlwt.Font()  # 为样式创建字体
+    font.bold = True  # 黑体
+    font.color_index = 2
+    style.font = font  # 设定样式
     return style
 
 

@@ -13,6 +13,7 @@ def main():
         copy_dir(web_locales_path, locales_path)
 
     js_dirs = search_files(locales_path, filter_dir)
+    js_dirs = sort_by_langs(js_dirs)
 
     workbook = xlwt.Workbook(encoding='utf-8')
 
@@ -47,17 +48,13 @@ def main():
 
             js_file_path = js_dir_path + '/' + js_file
             arr = read_js_json(js_file_path)
-
             for (k, v) in arr:
                 sheets_y_list = sheets_y.get(sheet_name)
                 sheets_y_list = sheets_y_list if sheets_y_list else []
                 (iy, sheets_y[sheet_name]) = z_arr_push(sheets_y_list, k)
                 if len(k) > 0:
-                    sheet.write(iy + 1, 0, k, style)
-                    if len(v) > 0:
-                        sheet.write(iy + 1, ix, v, style)
-                    else:
-                        sheet.write(iy + 1, ix, "''", style)
+                    sheet.write(iy + 1, 0, replace_first_last(k, '\''), style)
+                    sheet.write(iy + 1, ix, replace_first_last(v, '\''), style)
 
     export_excel(workbook)
     delete_dir(locales_path)
