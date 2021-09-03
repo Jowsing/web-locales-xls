@@ -124,6 +124,7 @@ def export_excel(workbook):
         file = 'web_locales'
     if not file.endswith('.xls'):
         file += '.xls'
+    make_dir('xlsx')
     workbook.save('xlsx/'+file)
 
 
