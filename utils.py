@@ -23,11 +23,12 @@ def replace_first_last(str, char):
     return str[str.find(char) + 1: str.rfind(char)]
 
 
-def add_first_last(str, char):
-    if len(char) < 1 or str.endswith('`') or str.endswith('"'):
+def add_first_last(str):
+    if str.endswith('`') or str.endswith('"') or str.endswith("'"):
         return str
-
-    return char + str + char
+    if str.find('"') > 0 or str.find("'") > 0:
+        return '`' + str + '`'
+    return "'" + str + "'"
 
 
 def lines_in_js(str):
@@ -49,6 +50,12 @@ def z_arr_push(arr, value):
 def sort_by_langs(arr):
     sort_keys = {'zh-CN': 'A', 'en-US': 'B',
                  'es-ES': 'C', 'nl-NL': 'D', 'zh-TW': 'E'}
+    return sorted(arr, key=sort_keys.__getitem__)
+
+
+def sort_js_by_langs(arr):
+    sort_keys = {'zh-CN.js': 'A', 'en-US.js': 'B',
+                 'es-ES.js': 'C', 'nl-NL.js': 'D', 'zh-TW.js': 'E'}
     return sorted(arr, key=sort_keys.__getitem__)
 
 
@@ -149,9 +156,18 @@ def write_js_file(path, str):
 def js_objstr_add(str, key, value):
     if len(str) < 1:
         str += 'export default {'
-    str += '\n  {0}: {1},'.format(key.encode(encoding='utf-8'),
-                                  value.encode(encoding='utf-8'))
+
+    if value == '<--line-->':
+        str += '\n'
+    else:
+        str += '\n  {0}: {1},'.format(key.encode(encoding='utf-8'),
+                                      value.encode(encoding='utf-8'))
     return str
+
+
+def safe_append(arr, value):
+    if isinstance(arr, list) and not value in arr:
+        arr.append(value)
 
 
 def get_sys_arg(i, error_msg='', def_value=''):
